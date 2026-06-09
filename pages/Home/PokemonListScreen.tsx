@@ -1,6 +1,7 @@
 import { StatusBar, Text } from "react-native";
 import {ContainerGlobal} from "../../styles/GlobalStyle"
-import { Background, PokemonsArea, Title, TopBar} from "./PokemonListScreenStyle";
+import { Background, PokemonsArea, Title, TopBar, SearchContainer} from "./PokemonListScreenStyle";
+import SearchComponente from "../../components/SearchComponent/SearchComponent";
 
 
 
@@ -11,6 +12,13 @@ export default function PokemonListScreen(){
                 <TopBar>
                     <Title>GlossyMon</Title>
                 </TopBar>
+                
+                <SearchContainer>
+                    <SearchComponente>
+
+                    </SearchComponente>
+                </SearchContainer>
+
                 <PokemonsArea>
                     
                 </PokemonsArea>

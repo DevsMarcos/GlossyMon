@@ -12,10 +12,11 @@ export const Background = styled(LinearGradient).attrs({
 `;
 
 
+
+
 export const TopBar = styled.View`
 height: 56px;
   flex-direction: row;
-  border: 2px solid white;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -30,4 +31,10 @@ export const PokemonsArea = styled.View`
   flex: 1;
   justify-content: space-between;
   border: 2px solid white;
+`
+export const SearchContainer = styled.View`
+    width: 100%;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
 `
