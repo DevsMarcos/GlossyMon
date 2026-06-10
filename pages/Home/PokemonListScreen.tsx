@@ -5,6 +5,14 @@ import SearchComponente from "../../components/SearchComponent/SearchComponent";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { useEffect, useRef, useState } from "react";
 import { Pokemon } from "../../interfaces/Pokemon";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParams } from "../../components/Route/Navigation";
+import { useNavigation } from "@react-navigation/native";
+
+
+type Nav = NativeStackNavigationProp<RootStackParams, "PokemonListScreen">;
+
+const navigation = useNavigation<Nav>();
 
 export default function PokemonListScreen() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -82,12 +90,10 @@ export default function PokemonListScreen() {
             numColumns={2}
             onEndReached={() => { if (hasMore && !loading) fetchPokemons(offset)}}
             onEndReachedThreshold={0.2}
-        
             // ESSENCIAL: Distribui os cards de 48% nas pontas, criando o espaço correto no meio
             columnWrapperStyle={{ justifyContent: 'space-between'}}
-        
             ListFooterComponent={loading ? <ActivityIndicator color="#a78bfa" style={{ margin: 20 }} /> : null}
-            renderItem={({ item }) => <PokemonCard pokemon={item} />}
+            renderItem={({ item }) => <PokemonCard pokemon={item} onPress={(p) => navigation.navigate("ProfilePokemon", {id: p.id})}/>}
             />
 
 
