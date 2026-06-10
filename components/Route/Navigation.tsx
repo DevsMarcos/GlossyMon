@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import PokemonListScreen from "../pages/Home/PokemonListScreen";
+import PokemonListScreen from "../../pages/Home/PokemonListScreen";
 
 const Stack = createNativeStackNavigator();
 
