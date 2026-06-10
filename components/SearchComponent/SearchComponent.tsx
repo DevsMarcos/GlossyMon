@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import {Input, InputArea, SearchArea} from "./SearchComponentStyle";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function SearchComponente(){
-    const [texto, setTexto] = useState("");
+
     
+    interface SearchProps {
+  value: string;
+  onChangeText: (text: string) => void;
+} 
+export default function SearchComponente({value, onChangeText}: SearchProps){
+    const [texto, setTexto] = useState("");
+
     return(
         <SearchArea>
             <InputArea>
@@ -12,8 +18,8 @@ export default function SearchComponente(){
                 <Input 
                 placeholder={"Informe o nome de um pokemon"} 
                 placeholderTextColor={'#fff'}
-                onChangeText={setTexto}
-                value={texto}
+                onChangeText={onChangeText}
+                value={value}
                 
                 />
             </InputArea>

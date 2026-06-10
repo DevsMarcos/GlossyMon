@@ -29,6 +29,8 @@ export const Title = styled.Text`
 
 export const PokemonsArea = styled.View`
   flex: 1;
+  width: 100%;
+  padding-left: 20px;
 
 `
 export const SearchContainer = styled.View`
@@ -36,4 +38,5 @@ export const SearchContainer = styled.View`
     height: 80px;
     align-items: center;
     justify-content: center;
+    padding-bottom: 25px;
 `
