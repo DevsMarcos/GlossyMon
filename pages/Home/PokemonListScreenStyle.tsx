@@ -29,8 +29,7 @@ export const Title = styled.Text`
 
 export const PokemonsArea = styled.View`
   flex: 1;
-  justify-content: space-between;
-  border: 2px solid white;
+
 `
 export const SearchContainer = styled.View`
     width: 100%;
