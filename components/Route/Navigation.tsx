@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 export default function RootStack(){
 return(
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false}}>
         <Stack.Screen name="PokemonListScreen" component={PokemonListScreen}/>
         <Stack.Screen name="ProfilePokemon" component={PokemonDetailsPage}/>
     </Stack.Navigator>

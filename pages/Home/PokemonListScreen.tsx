@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, StatusBar } from "react-native";
 import { ContainerGlobal } from "../../styles/GlobalStyle";
 import { Background, PokemonsArea, Title, TopBar, SearchContainer } from "./PokemonListScreenStyle";
 import SearchComponente from "../../components/SearchComponent/SearchComponent";
@@ -10,9 +10,6 @@ import { RootStackParams } from "../../components/Route/Navigation";
 import { useNavigation } from "@react-navigation/native";
 
 
-type Nav = NativeStackNavigationProp<RootStackParams, "PokemonListScreen">;
-
-const navigation = useNavigation<Nav>();
 
 export default function PokemonListScreen() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -20,8 +17,16 @@ export default function PokemonListScreen() {
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-
   const isLoadingRef = useRef(false);
+  const [background, setBackground] = useState<[string, string, string]>([
+    "#1a1035", "#0f1d3e", "#0a0a1a",
+  ]);
+
+
+
+type Nav = NativeStackNavigationProp<RootStackParams, "PokemonListScreen">;
+
+const navigation = useNavigation<Nav>();
 
   // Carrega os primeiros pokémons ao montar a tela
   useEffect(() => {
@@ -73,8 +78,11 @@ export default function PokemonListScreen() {
   );
 
   return (
-    <ContainerGlobal edges={["top"]}>
-      <Background>
+        <Background>
+        <ContainerGlobal edges={["top", "bottom"]}>
+        <StatusBar 
+          hidden={true} // Faz o app ocupar o espaço da barra de status
+        />
         <TopBar>
           <Title>GlossyMon</Title>
         </TopBar>
@@ -98,7 +106,8 @@ export default function PokemonListScreen() {
 
 
         </PokemonsArea>
+      </ContainerGlobal>
       </Background>
-    </ContainerGlobal>
+
   );
 }
