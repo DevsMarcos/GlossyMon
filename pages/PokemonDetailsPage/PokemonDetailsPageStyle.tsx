@@ -124,6 +124,15 @@ export const Section = styled.View`
   margin-bottom: 12px;
 `;
 
+export const Moves = styled.TouchableOpacity`
+  background-color: rgba(255,255,255,0.1);
+  border-width: 1px;
+  border-color: rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+`;
+
 export const SectionTitle = styled.Text`
   font-size: 24px;
   font-weight: 600;
@@ -131,12 +140,14 @@ export const SectionTitle = styled.Text`
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 10px;
+  text-align: center;
 `;
 
 export const Description = styled.Text`
   font-size: 16px;
   color: rgba(255,255,255,0.85);
   line-height: 22px;
+  text-align: center;
 `;
 
 // ─── Stats ────────────────────────────────────────────────────────────────────

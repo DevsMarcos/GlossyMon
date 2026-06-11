@@ -33,9 +33,11 @@ import {
   EvoSprite,
   EvoArrow,
   EvoName,
+  Moves,
 } from "./PokemonDetailsPageStyle";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { ContainerGlobal } from "../../styles/GlobalStyle";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // ─── Gradientes por tipo ──────────────────────────────────────────────────────
 const TYPE_GRADIENTS: Record<string, [string, string, string]> = {
@@ -111,13 +113,17 @@ type Route = RouteProp<RootStackParams, "ProfilePokemon">;
 export default function PokemonDetailsPage() {
   const { params } = useRoute<Route>();
   const { id }     = params;
-  const navigation = useNavigation();
-
   const [pokemon,    setPokemon]    = useState<PokemonProfile | null>(null);
   const [loading,    setLoading]    = useState(false);
   const [background, setBackground] = useState<[string, string, string]>([
     "#1a1035", "#0f1d3e", "#0a0a1a",
   ]);
+
+  type Nav = NativeStackNavigationProp<RootStackParams , "Movements">
+
+
+  const navigation = useNavigation<Nav>();
+
 
   // ── Busca os dados do pokémon ───────────────────────────────────────────────
   useEffect(() => {
@@ -258,7 +264,7 @@ export default function PokemonDetailsPage() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 16, gap: 12, alignItems: "center" }}
                 >
-  {/* Evolução 1 */}
+                {/* Evolução 1 */}
             <EvoItem>
                 <EvoSprite source={{ uri: pokemon.sprite  }} resizeMode="contain" />
                 <EvoName>Bulbasaur</EvoName>
@@ -283,6 +289,10 @@ export default function PokemonDetailsPage() {
             </EvoItem>
             </ScrollView>
           </Section>
+
+          <Moves onPress={() => navigation.navigate("Movements", { id: pokemon.id })}>
+            <SectionTitle>Movimentos</SectionTitle>
+          </Moves>
 
         </ScrollView>
       </ContainerGlobal>
