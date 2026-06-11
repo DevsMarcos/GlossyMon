@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {Input, InputArea, SearchArea} from "./SearchComponentStyle";
 import { Ionicons } from "@expo/vector-icons";
+import { Keyboard } from "react-native";
 
 
     
@@ -16,10 +17,11 @@ export default function SearchComponente({value, onChangeText}: SearchProps){
             <InputArea>
                 <Ionicons name="search" size={24} color="rgba(255,255,255,0.8)" />
                 <Input 
-                placeholder={"Informe o nome de um pokemon"} 
+                placeholder={"Nome do Pokemon"} 
                 placeholderTextColor={'#fff'}
                 onChangeText={onChangeText}
                 value={value}
+                onSubmitEditing={Keyboard.dismiss}
                 
                 />
             </InputArea>

@@ -18,7 +18,7 @@ export const TopBar = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 0 16px;
-  gap: 10%;
+  margin-top: 2%;
   border-bottom-width: 1px;
   border-bottom-color: rgba(255,255,255,0.12);
   background-color: rgba(255,255,255,0.07);

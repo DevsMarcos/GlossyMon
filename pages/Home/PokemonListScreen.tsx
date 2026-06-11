@@ -80,9 +80,9 @@ const navigation = useNavigation<Nav>();
   return (
         <Background>
         <ContainerGlobal edges={["top", "bottom"]}>
-        <StatusBar 
-          hidden={true} // Faz o app ocupar o espaço da barra de status
-        />
+            <StatusBar 
+              hidden={true} // Faz o app ocupar o espaço da barra de status
+            />
         <TopBar>
           <Title>GlossyMon</Title>
         </TopBar>

@@ -35,6 +35,7 @@ import {
   EvoName,
 } from "./PokemonDetailsPageStyle";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { ContainerGlobal } from "../../styles/GlobalStyle";
 
 // ─── Gradientes por tipo ──────────────────────────────────────────────────────
 const TYPE_GRADIENTS: Record<string, [string, string, string]> = {
@@ -177,7 +178,7 @@ export default function PokemonDetailsPage() {
 
   return (
     <Background colors={background}>
-      <Container edges={["top", "bottom"]}>
+      <ContainerGlobal edges={["top", "bottom"]}>
 
         <StatusBar
           hidden={true} // Faz o app ocupar o espaço da barra de status
@@ -278,13 +279,13 @@ export default function PokemonDetailsPage() {
             {/* Evolução 3 */}
             <EvoItem>
                 <EvoSprite source={{ uri: pokemon.sprite }} resizeMode="contain" />
-                <EvoName>Venusaur</EvoName>
+                <EvoName>{}</EvoName>
             </EvoItem>
             </ScrollView>
           </Section>
 
         </ScrollView>
-      </Container>
+      </ContainerGlobal>
     </Background>
   );
 }
