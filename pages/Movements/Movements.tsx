@@ -1,6 +1,8 @@
 import { Route, RouteProp, useRoute } from "@react-navigation/native"
 import { RootStackParams } from "../../components/Route/Navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Text } from "react-native";
+import { MoveInfo, PokemonDataResponse, PokemonMove } from "../../interfaces/Pokemon";
 
 
 
@@ -11,14 +13,37 @@ export default function Movements(){
     const { params } = useRoute<Route>();
 
     const { id } = params;
-    const [moviments,    setMoviments]    = useState<PokemonProfile | null>(null);
+    const [moves,    setMoves]    = useState<MoveInfo[]>([]);
     const [loading,    setLoading]    = useState(false);
     const [background, setBackground] = useState<[string, string, string]>([
     "#1a1035", "#0f1d3e", "#0a0a1a",
   ]);
+
+  useEffect(()=>{
+    fetchMoves();
+  }, [])
+
+    const fetchMoves = async (): Promise<void> => {
+        try{
+            setLoading(true);
+
+            const moveRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            const data: PokemonDataResponse = await moveRes.json();
+
+
+            const dataMoves: MoveInfo[] = data.moves.map(item => item.move);
+
+            setMoves(dataMoves)
+        } catch (error) {
+      console.error("Erro ao buscar movimentos:", error);
+        } finally {
+        setLoading(false);
+    }
+  }
     
     return(
         <>
+            <Text>{id}</Text>
         </>
     )
 }

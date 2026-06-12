@@ -22,3 +22,17 @@ interface Stat {
   base_stat: number;
   stat: { name: string };
 }
+
+export interface MoveInfo{
+  id: number;
+  url: string
+}
+
+export interface PokemonMove {
+  move: MoveInfo
+}
+
+export interface PokemonDataResponse {
+  moves: PokemonMove[];
+  // Omitimos as outras propriedades da API que não vamos usar agora
+}
