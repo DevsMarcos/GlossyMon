@@ -24,7 +24,7 @@ interface Stat {
 }
 
 export interface MoveInfo{
-  id: number;
+  name: string;
   url: string
 }
 

@@ -1,8 +1,11 @@
 import { Route, RouteProp, useRoute } from "@react-navigation/native"
 import { RootStackParams } from "../../components/Route/Navigation";
 import { useEffect, useState } from "react";
-import { Text } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import { MoveInfo, PokemonDataResponse, PokemonMove } from "../../interfaces/Pokemon";
+import { ListRenderItem } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { Background, ContainerGlobal, TouchableButton } from "../../styles/GlobalStyle";
 
 
 
@@ -40,10 +43,34 @@ export default function Movements(){
         setLoading(false);
     }
   }
+
+    const RenderItem: ListRenderItem<MoveInfo> = ({ item }) => (
+      <TouchableButton>
+        <Text>{item.name}</Text>
+      </TouchableButton>
+    )
+
+      if(loading){
+        return(
+        <Background>
+          <ActivityIndicator color="#a78bfa" style={{ margin: 20 }} />
+        </Background>
+        )
+      }
+
     
     return(
-        <>
-            <Text>{id}</Text>
-        </>
+      <Background>
+        <ContainerGlobal>
+        <FlatList 
+          data={moves}
+          renderItem={RenderItem}
+          keyExtractor={(item) => item.name}
+        
+        />
+        </ContainerGlobal>
+
+      </Background>
+
     )
 }
