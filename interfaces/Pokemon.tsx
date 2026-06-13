@@ -23,13 +23,18 @@ interface Stat {
   stat: { name: string };
 }
 
-export interface MoveInfo{
-  name: string;
-  url: string
+export interface MoveInfo {
+  name:  string;
+  url:   string;
+  level: number;
 }
 
 export interface PokemonMove {
-  move: MoveInfo
+  move: { name: string; url: string };
+  version_group_details: {
+    level_learned_at:  number;
+    move_learn_method: { name: string };
+  }[];
 }
 
 export interface PokemonDataResponse {

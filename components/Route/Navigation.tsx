@@ -7,7 +7,7 @@ import Movements from "../../pages/Movements/Movements";
 export type RootStackParams = {
   PokemonListScreen:    undefined;
   ProfilePokemon: { id: number };
-  Movements: { id: number }
+  Movements: { id: number, name: string }
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();

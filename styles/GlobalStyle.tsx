@@ -21,6 +21,19 @@ export const BackgroundLoad = styled(LinearGradient)<{ colors: string[] }>`
 `;
 
 
+export const GlobalTopBar = styled.View`
+height: 56px;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`
+
+export const GlobalTitle = styled.Text`
+  font-size: 30px;
+  color: #ffffff;
+`
+
 // ─── Seções ───────────────────────────────────────────────────────────────────
 export const Section = styled.View`
   background-color: rgba(255,255,255,0.1);
@@ -37,6 +50,7 @@ export const TouchableButton = styled.TouchableOpacity`
   border-color: rgba(255,255,255,0.18);
   border-radius: 16px;
   padding: 14px 16px;
+  padding-left: 20px;
   margin-bottom: 12px;
 `;
 
@@ -50,11 +64,24 @@ export const SectionTitle = styled.Text`
   text-align: center;
 `;
 
-export const Description = styled.Text`
-  font-size: 16px;
+
+interface DescriptionProps {
+  align?: 'left' | 'center' | 'right' | 'justify'; // Aceita apenas valores válidos de alinhamento
+  case?: 'uppercase' | 'lowercase';
+  fontSize?: '16px'
+}
+
+export const Description = styled.Text<DescriptionProps>`
+  font-size: ${props => props.fontSize || '16'}px;
   color: rgba(255,255,255,0.85);
-  line-height: 22px;
-  text-align: center;
+  text-align: ${({ align }) =>  align || 'center'};
+    font-weight: 600;
+
+`;
+
+export const OfuscedDescription = styled.Text`
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
 `;
 
 

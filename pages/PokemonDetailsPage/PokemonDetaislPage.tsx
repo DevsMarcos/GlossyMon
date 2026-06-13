@@ -290,7 +290,7 @@ export default function PokemonDetailsPage() {
             </ScrollView>
           </Section>
 
-          <Moves onPress={() => navigation.navigate("Movements", { id: pokemon.id })}>
+          <Moves onPress={() => navigation.navigate("Movements", { id: pokemon.id, name: pokemon.name })}>
             <SectionTitle>Movimentos</SectionTitle>
           </Moves>
 
