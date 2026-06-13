@@ -5,9 +5,10 @@ import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import { MoveInfo, PokemonDataResponse, PokemonMove } from "../../interfaces/Pokemon";
 import { ListRenderItem } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { BackButton, Background, ContainerGlobal, Description, GlobalTitle, GlobalTopBar, OfuscedDescription, PokemonName, PokemonNumber, TopBar, TouchableButton } from "../../styles/GlobalStyle";
+import { BackButton, Background, BackgroundLoad, ContainerGlobal, Description, GlobalTitle, GlobalTopBar, OfuscedDescription, PokemonName, PokemonNumber, TopBar, TouchableButton } from "../../styles/GlobalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Moves } from "../PokemonDetailsPage/PokemonDetailsPageStyle";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 
 
@@ -17,14 +18,14 @@ export default function Movements(){
     
     const { params } = useRoute<Route>();
 
-    const { id, name } = params;
+    const { id, name, background } = params;
     const [moves,    setMoves]    = useState<MoveInfo[]>([]);
     const [loading,    setLoading]    = useState(false);
-    const [background, setBackground] = useState<[string, string, string]>([
-    "#1a1035", "#0f1d3e", "#0a0a1a",
-  ]);
 
-    const navigation = useNavigation();
+    type Nav = NativeStackNavigationProp<RootStackParams , "MovementDetail">
+    
+
+    const navigation = useNavigation<Nav>();
   
 
   useEffect(()=>{
@@ -70,8 +71,8 @@ const fetchMoves = async (): Promise<void> => {
 };
 
     const RenderItem: ListRenderItem<MoveInfo> = ({ item }) => (
-    <TouchableButton>
-      <Description align="left" fontSize="18"> Movimento: {item.name.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}</Description>
+    <TouchableButton onPress={() => navigation.navigate("MovementDetail", { url: item.url })}>
+      <Description align="left" Size={'18px'}> Movimento: {item.name.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}</Description>
       <OfuscedDescription>Level de Aprendizagem: {item.level} </OfuscedDescription>
     </TouchableButton>
 );
@@ -86,7 +87,7 @@ const fetchMoves = async (): Promise<void> => {
 
     
     return(
-      <Background>
+      <BackgroundLoad colors={background ?? ["#1a1035", "#0f1d3e", "#0a0a1a",]}>
         <ContainerGlobal>
 
         <TopBar>
@@ -105,11 +106,10 @@ const fetchMoves = async (): Promise<void> => {
           renderItem={RenderItem}
           keyExtractor={(item) => item.name}
           contentContainerStyle={{ paddingBottom: 32, padding:16 }} // ← adiciona isso
-        
         />
         </ContainerGlobal>
 
-      </Background>
+      </BackgroundLoad>
 
     )
 }

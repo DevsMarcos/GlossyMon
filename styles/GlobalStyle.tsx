@@ -68,14 +68,14 @@ export const SectionTitle = styled.Text`
 interface DescriptionProps {
   align?: 'left' | 'center' | 'right' | 'justify'; // Aceita apenas valores válidos de alinhamento
   case?: 'uppercase' | 'lowercase';
-  fontSize?: '16px'
+  Size?: '16px'
 }
 
 export const Description = styled.Text<DescriptionProps>`
-  font-size: ${props => props.fontSize || '16'}px;
+  font-size: ${props => props.Size || '16'}px;
   color: rgba(255,255,255,0.85);
   text-align: ${({ align }) =>  align || 'center'};
-    font-weight: 600;
+  font-weight: 600;
 
 `;
 
