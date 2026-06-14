@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RootStackParams } from "../../components/Route/Navigation";
-import { BackButton, Background, BackgroundLoad, ContainerGlobal, PokemonName, PokemonNumber, SectionTitle, TopBar, TYPE_COLORS, TYPE_GRADIENTS } from "../../styles/GlobalStyle"
+import { BackButton, Background, BackgroundLoad, ContainerGlobal, PokemonName, PokemonNumber, SectionTitle, TitleArea, TopBar, TYPE_COLORS, TYPE_GRADIENTS } from "../../styles/GlobalStyle"
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { MoveDetails } from "../../interfaces/Pokemon";
 import { ActivityIndicator, Text } from "react-native";
@@ -84,8 +84,9 @@ return (
             <BackButton onPress={() => navigation.goBack()}>
                 <Ionicons name="arrow-back" size={32} color="white" />
             </BackButton>
-            <PokemonName>{name}</PokemonName>
-            <PokemonName>{move.type.name}</PokemonName>
+                      <TitleArea>
+                        <PokemonName>{name}</PokemonName>
+                      </TitleArea>
         </TopBar>
         <ContainerMovement>
             <SectionMove>

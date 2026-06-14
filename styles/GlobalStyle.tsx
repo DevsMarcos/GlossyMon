@@ -133,12 +133,25 @@ export const TopBar = styled.View`
   height: 56px;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   padding: 0 16px;
   margin-top: 2%;
   border-bottom-width: 1px;
   border-bottom-color: rgba(255,255,255,0.12);
   background-color: rgba(255,255,255,0.07);
+  text-align: center;
 `;
+
+export const TitleArea = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-right: 20%;
+`
+
+
 
 export const BackButton = styled.TouchableOpacity`
   width: 40px;
@@ -163,5 +176,5 @@ export const PokemonName = styled.Text`
   font-weight: 600;
   color: #ffffff;
   text-transform: capitalize;
-  flex: 1;
+  text-align: center;
 `;

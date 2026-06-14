@@ -5,7 +5,7 @@ import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import { MoveInfo, PokemonDataResponse, PokemonMove } from "../../interfaces/Pokemon";
 import { ListRenderItem } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { BackButton, Background, BackgroundLoad, ContainerGlobal, Description, GlobalTitle, GlobalTopBar, OfuscedDescription, PokemonName, PokemonNumber, TopBar, TouchableButton } from "../../styles/GlobalStyle";
+import { BackButton, Background, BackgroundLoad, ContainerGlobal, Description, GlobalTitle, GlobalTopBar, OfuscedDescription, PokemonName, PokemonNumber, TitleArea, TopBar, TouchableButton } from "../../styles/GlobalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Moves } from "../PokemonDetailsPage/PokemonDetailsPageStyle";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -94,9 +94,11 @@ const fetchMoves = async (): Promise<void> => {
           <BackButton onPress={() => navigation.goBack()}>
                 <Ionicons name="arrow-back" size={32} color="white" />
           </BackButton>
-          <PokemonNumber>#{String(id).padStart(3, "0")}</PokemonNumber>
-          <PokemonName>{name}</PokemonName>
-        </TopBar>
+          <TitleArea>
+            <PokemonName>{name}</PokemonName>
+          </TitleArea>        
+          
+          </TopBar>
         <GlobalTopBar>
           <GlobalTitle>Lista de Movimentos</GlobalTitle>
         </GlobalTopBar>

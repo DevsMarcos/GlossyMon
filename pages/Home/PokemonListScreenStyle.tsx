@@ -34,9 +34,8 @@ export const PokemonsArea = styled.View`
 
 `
 export const SearchContainer = styled.View`
-    width: 100%;
-    height: 80px;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 25px;
-`
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px 4px;
+`;

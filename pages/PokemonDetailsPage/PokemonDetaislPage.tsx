@@ -6,11 +6,7 @@ import { PokemonProfile } from "../../interfaces/Pokemon";
 import {
   Background,
   Container,
-  TopBar,
-  BackButton,
   BackIcon,
-  PokemonName,
-  PokemonNumber,
   SpriteContainer,
   Sprite,
   TypesRow,
@@ -36,7 +32,7 @@ import {
   Moves,
 } from "./PokemonDetailsPageStyle";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { ContainerGlobal } from "../../styles/GlobalStyle";
+import { BackButton, ContainerGlobal, PokemonName, PokemonNumber, TitleArea, TopBar } from "../../styles/GlobalStyle";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // ─── Gradientes por tipo ──────────────────────────────────────────────────────
@@ -118,6 +114,8 @@ export default function PokemonDetailsPage() {
   const [background, setBackground] = useState<[string, string, string]>([
     "#1a1035", "#0f1d3e", "#0a0a1a",
   ]);
+  const [evolutions, setEvolutions] = useState<{ name: string; sprite: string }[]>([]);
+
 
   type Nav = NativeStackNavigationProp<RootStackParams , "Movements">
 
@@ -137,6 +135,28 @@ export default function PokemonDetailsPage() {
     }
   }, [pokemon]);
 
+
+    const parseEvolutions = async (chain: any) => {
+  const evos: { name: string; sprite: string }[] = [];
+  let current = chain;
+
+  while (current) {
+    const name   = current.species.name;
+    const res    = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const data   = await res.json();
+    const sprite = data.sprites.other["official-artwork"].front_default
+                ?? data.sprites.front_default;
+
+    evos.push({ name, sprite });
+    current = current.evolves_to?.[0] ?? null;
+  }
+
+  setEvolutions(evos);
+};
+
+
+
+
   const fetchPokemon = async (id: number) => {
     try {
       setLoading(true);
@@ -149,8 +169,11 @@ export default function PokemonDetailsPage() {
       const pokemonData = await pokemonRes.json();
       const speciesData = await speciesRes.json();
 
-      const evoRes  = await fetch(speciesData.evolution_chain.url);
-      const evoData = await evoRes.json();
+  const evoRes  = await fetch(speciesData.evolution_chain.url);
+  const evoData = await evoRes.json();
+
+// Adiciona essa linha
+  await parseEvolutions(evoData.chain);
 
       setPokemon({
         id:          pokemonData.id,
@@ -174,6 +197,8 @@ export default function PokemonDetailsPage() {
     }
   };
 
+
+
   if (loading || !pokemon) {
     return (
       <Background colors={["#1a1035", "#0f1d3e", "#0a0a1a"]}>
@@ -195,8 +220,9 @@ export default function PokemonDetailsPage() {
           <BackButton onPress={() => navigation.goBack()}>
                 <Ionicons name="arrow-back" size={32} color="white" />
           </BackButton>
-          <PokemonNumber>#{String(pokemon.id).padStart(3, "0")}</PokemonNumber>
-          <PokemonName>{pokemon.name}</PokemonName>
+          <TitleArea>
+            <PokemonName>{pokemon.name}</PokemonName>
+          </TitleArea>
         </TopBar>
 
         <ScrollView
@@ -206,6 +232,7 @@ export default function PokemonDetailsPage() {
 
           {/* Sprite */}
           <SpriteContainer>
+            <PokemonNumber>#{String(pokemon.id).padStart(3, "0")}</PokemonNumber>
             <Sprite source={{ uri: pokemon.sprite }} resizeMode="contain" />
           </SpriteContainer>
 
@@ -257,38 +284,27 @@ export default function PokemonDetailsPage() {
               ))}
             </StatsContainer>
           </Section>
-              {/*Evoluções */}
-          <Section>
+         {/* Evoluções */}
+          {evolutions.length > 1 && (
+            <Section>
+              <SectionTitle>Evoluções</SectionTitle>
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 16, gap: 12, alignItems: "center" }}
-                >
-                {/* Evolução 1 */}
-            <EvoItem>
-                <EvoSprite source={{ uri: pokemon.sprite  }} resizeMode="contain" />
-                <EvoName>Bulbasaur</EvoName>
-            </EvoItem>
-
-            {/* Seta */}
-            <EvoArrow>›</EvoArrow>
-
-            {/* Evolução 2 */}
-            <EvoItem>
-                <EvoSprite source={{ uri: pokemon.sprite  }} resizeMode="contain" />
-                <EvoName>Ivysaur</EvoName>
-            </EvoItem>
-
-            {/* Seta */}
-            <EvoArrow>›</EvoArrow>
-
-            {/* Evolução 3 */}
-            <EvoItem>
-                <EvoSprite source={{ uri: pokemon.sprite }} resizeMode="contain" />
-                <EvoName>{}</EvoName>
-            </EvoItem>
-            </ScrollView>
-          </Section>
+                contentContainerStyle={{ gap: 12, alignItems: "center" }}
+              >
+                {evolutions.map((evo, index) => (
+                  <EvoItem key={evo.name} style={{ flexDirection: "row", alignItems: "center" }}>
+                    <EvoSprite source={{ uri: evo.sprite }} resizeMode="contain" />
+                    <EvoName>{evo.name}</EvoName>
+                    {index < evolutions.length - 1 && (
+                      <EvoArrow>›</EvoArrow>
+                    )}
+                  </EvoItem>
+                ))}
+              </ScrollView>
+            </Section>
+          )}
 
           <Moves onPress={() => navigation.navigate("Movements", { id: pokemon.id, name: pokemon.name, background: background })}>
             <SectionTitle>Movimentos</SectionTitle>

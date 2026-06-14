@@ -25,7 +25,6 @@ export default function SearchComponente({value, onChangeText}: SearchProps){
                 
                 />
             </InputArea>
-            <Ionicons name="filter" size={24} color="rgba(255,255,255,0.8)"/>
         </SearchArea>
     )
 }
