@@ -71,8 +71,8 @@ const fetchMoves = async (): Promise<void> => {
 };
 
     const RenderItem: ListRenderItem<MoveInfo> = ({ item }) => (
-    <TouchableButton onPress={() => navigation.navigate("MovementDetail", { url: item.url })}>
-      <Description align="left" Size={'18px'}> Movimento: {item.name.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}</Description>
+    <TouchableButton onPress={() => navigation.navigate("MovementDetail", { url: item.url, name: item.name })}>
+      <Description align="left"> Movimento: {item.name.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}</Description>
       <OfuscedDescription>Level de Aprendizagem: {item.level} </OfuscedDescription>
     </TouchableButton>
 );

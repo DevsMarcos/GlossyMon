@@ -9,7 +9,7 @@ export type RootStackParams = {
   PokemonListScreen:    undefined;
   ProfilePokemon: { id: number };
   Movements: { id: number, name: string, background: [string, string, string] };
-  MovementDetail: { url: string };
+  MovementDetail: { url: string, name: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();

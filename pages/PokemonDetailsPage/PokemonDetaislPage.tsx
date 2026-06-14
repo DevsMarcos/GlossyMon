@@ -241,7 +241,7 @@ export default function PokemonDetailsPage() {
 
           {/* Stats */}
           <Section>
-            <SectionTitle>Stats base</SectionTitle>
+            <SectionTitle>Estados Base</SectionTitle>
             <StatsContainer>
               {pokemon.stats.map((stat: any) => (
                 <StatRow key={stat.stat.name}>

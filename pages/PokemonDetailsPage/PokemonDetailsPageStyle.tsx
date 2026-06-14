@@ -102,7 +102,7 @@ export const InfoCard = styled.View`
 
 export const InfoLabel = styled.Text`
   font-size: 10px;
-  color: rgba(255,255,255,0.5);
+  color: white;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
@@ -136,7 +136,7 @@ export const Moves = styled.TouchableOpacity`
 export const SectionTitle = styled.Text`
   font-size: 24px;
   font-weight: 600;
-  color: rgba(255,255,255,0.5);
+  color: white;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 10px;
@@ -162,8 +162,8 @@ export const StatRow = styled.View`
 `;
 
 export const StatLabel = styled.Text`
-  font-size: 16px;
-  color: rgba(255,255,255,0.55);
+  font-size: 14px;
+  color: white;
   width: 72px;
 `;
 

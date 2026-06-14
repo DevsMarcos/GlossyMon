@@ -41,3 +41,17 @@ export interface PokemonDataResponse {
   moves: PokemonMove[];
   // Omitimos as outras propriedades da API que não vamos usar agora
 }
+
+export interface MoveDetails {
+  accuracy:   number;
+  power:      number;
+  pp:         number;
+  type:       { name: string };   // objeto, não array
+  describe:   string;
+  generation: string;
+  category:   string;
+}
+
+export interface typeMoviment {
+  name: string
+}
