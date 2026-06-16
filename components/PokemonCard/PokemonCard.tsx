@@ -28,7 +28,7 @@ export default function PokemonCard({ pokemon, onPress }: Props) {
 
         <Image
           source={{ uri: pokemon.sprite }}
-          style={{ width: 72, height: 72 }}
+          style={{ width: 160, height: 160 }}
           resizeMode="contain"
         />
 

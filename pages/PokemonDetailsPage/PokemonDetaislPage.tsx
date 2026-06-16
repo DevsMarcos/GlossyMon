@@ -34,6 +34,7 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BackButton, ContainerGlobal, PokemonName, PokemonNumber, TitleArea, TopBar } from "../../styles/GlobalStyle";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 // ─── Gradientes por tipo ──────────────────────────────────────────────────────
 const TYPE_GRADIENTS: Record<string, [string, string, string]> = {
@@ -294,11 +295,11 @@ export default function PokemonDetailsPage() {
                 contentContainerStyle={{ gap: 12, alignItems: "center" }}
               >
                 {evolutions.map((evo, index) => (
-                  <EvoItem key={evo.name} style={{ flexDirection: "row", alignItems: "center" }}>
+                  <EvoItem key={evo.name} style={{ flexDirection: "row", alignItems: "center"}}>
                     <EvoSprite source={{ uri: evo.sprite }} resizeMode="contain" />
                     <EvoName>{evo.name}</EvoName>
                     {index < evolutions.length - 1 && (
-                      <EvoArrow>›</EvoArrow>
+                      <MaterialIcons name="arrow-right" size={32} color="white" />
                     )}
                   </EvoItem>
                 ))}

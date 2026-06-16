@@ -24,6 +24,9 @@ export default function PokemonListScreen() {
   const [selectedType,   setSelectedType]   = useState<string | null>(null);
   const [filteredByType, setFilteredByType] = useState<Pokemon[]>([]);
   const [loadingType,    setLoadingType]    = useState(false);
+  const [allNames,       setAllNames]       = useState<{ name: string; url: string }[]>([]);
+  const [searchResults,  setSearchResults]  = useState<Pokemon[]>([]);
+  const [loadingSearch,  setLoadingSearch]  = useState(false);
 
   const isLoadingRef = useRef(false);
   const navigation   = useNavigation<Nav>();
@@ -31,7 +34,24 @@ export default function PokemonListScreen() {
   // ── Primeira carga ──────────────────────────────────────────────────────────
   useEffect(() => {
     fetchPokemons(0);
+    loadAllNames(); // ← adiciona
+
   }, []);
+
+  useEffect(() => {
+  onSearchChanged();
+}, [search]);
+
+//Busca nomes
+const loadAllNames = async () => {
+  try {
+    const res  = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1500&offset=0");
+    const data = await res.json();
+    setAllNames(data.results);
+  } catch (error) {
+    console.error("Erro ao carregar nomes:", error);
+  }
+};
 
   // ── Busca pokémons paginados ────────────────────────────────────────────────
   const fetchPokemons = async (currentOffset: number) => {
@@ -69,6 +89,48 @@ export default function PokemonListScreen() {
       isLoadingRef.current = false;
     }
   };
+
+  const onSearchChanged = async () => {
+  const term = search.toLowerCase().trim();
+
+  if (term === "") {
+    setSearchResults([]);
+    return;
+  }
+
+  const matched = allNames
+    .filter((p) => p.name.includes(term))
+    .slice(0, 20);
+
+  if (matched.length === 0) {
+    setSearchResults([]);
+    return;
+  }
+
+  try {
+    setLoadingSearch(true);
+
+    const detalhes: Pokemon[] = await Promise.all(
+      matched.map(async (p) => {
+        const detRes  = await fetch(p.url);
+        const detData = await detRes.json();
+        return {
+          id:     detData.id,
+          name:   detData.name,
+          sprite: detData.sprites.other["official-artwork"].front_default
+               ?? detData.sprites.front_default,
+          types:  detData.types.map((t: any) => t.type.name),
+        };
+      })
+    );
+
+    setSearchResults(detalhes.sort((a, b) => a.id - b.id));
+  } catch (error) {
+    console.error("Erro na busca:", error);
+  } finally {
+    setLoadingSearch(false);
+  }
+};
 
   // ── Busca pokémons por tipo ─────────────────────────────────────────────────
   const handleSelectType = async (type: string | null) => {
@@ -114,9 +176,11 @@ export default function PokemonListScreen() {
   // Se tem tipo selecionado → usa filteredByType
   // Se não tem tipo        → usa pokemons completo
   // Aplica filtro por nome por cima
-  const dadosExibidos = (selectedType ? filteredByType : pokemons).filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  );
+const dadosExibidos = search.trim()
+  ? searchResults                                          // tem texto → busca real
+  : selectedType
+    ? filteredByType                                       // tem tipo → filtro por tipo
+    : pokemons; 
 
   return (
     <Background>
