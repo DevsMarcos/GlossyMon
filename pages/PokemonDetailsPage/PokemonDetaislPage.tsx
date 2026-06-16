@@ -35,6 +35,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { BackButton, ContainerGlobal, PokemonName, PokemonNumber, TitleArea, TopBar } from "../../styles/GlobalStyle";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import NotFoundPokemonDetail from "../Error/NotFoundPokemonDetails";
 
 // ─── Gradientes por tipo ──────────────────────────────────────────────────────
 const TYPE_GRADIENTS: Record<string, [string, string, string]> = {
@@ -116,6 +117,7 @@ export default function PokemonDetailsPage() {
     "#1a1035", "#0f1d3e", "#0a0a1a",
   ]);
   const [evolutions, setEvolutions] = useState<{ name: string; sprite: string }[]>([]);
+  const [error, setError] = useState<boolean>(false);
 
 
   type Nav = NativeStackNavigationProp<RootStackParams , "Movements">
@@ -160,21 +162,34 @@ export default function PokemonDetailsPage() {
 
   const fetchPokemon = async (id: number) => {
     try {
-      setLoading(true);
+    // 1. Ativa o loading e limpa erros anteriores
+    setLoading(true);
+    setError(false); 
 
-      const [pokemonRes, speciesRes] = await Promise.all([
-        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
-        fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
-      ]);
+    // 2. Faz as buscas iniciais em paralelo
+    const [pokemonRes, speciesRes] = await Promise.all([
+      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
+      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
+    ]);
 
-      const pokemonData = await pokemonRes.json();
-      const speciesData = await speciesRes.json();
+    // FORÇA IR PARA O CATCH se o Pokémon não existir (evita o 404 travar o app)
+    if (!pokemonRes.ok || !speciesRes.ok) {
+      throw new Error("Pokémon não encontrado na PokéAPI");
+    }
 
-  const evoRes  = await fetch(speciesData.evolution_chain.url);
-  const evoData = await evoRes.json();
+    const pokemonData = await pokemonRes.json();
+    const speciesData = await speciesRes.json();
 
-// Adiciona essa linha
-  await parseEvolutions(evoData.chain);
+    // 3. Busca a evolução com segurança
+    if (speciesData?.evolution_chain?.url) {
+      const evoRes  = await fetch(speciesData.evolution_chain.url);
+      
+      if (evoRes.ok) {
+        const evoData = await evoRes.json();
+        // Executa o seu parse de evolução
+        await parseEvolutions(evoData.chain);
+      }
+    }
 
       setPokemon({
         id:          pokemonData.id,
@@ -188,24 +203,38 @@ export default function PokemonDetailsPage() {
                        .find((f: any) => f.language.name === "en")
                        ?.flavor_text
                        .replace(/\f/g, " "),
-        evolution:   evoData.chain,
+        evolution:   speciesData.chain,
       });
 
     } catch (error) {
-      console.error("Erro ao buscar perfil:", error);
-    } finally {
-      setLoading(false);
-    }
+    // Se QUALQUER coisa acima falhar, cai aqui
+    console.log("Erro capturado com sucesso:", error);
+    setError(true); // Ativa sua tela de NotFound
+  } finally {
+    // Esse bloco OBRIGATORIAMENTE roda, dando certo ou dando erro!
+    // Isso garante o fim do loading infinito.
+    setLoading(false); 
+  }
   };
 
 
 
-  if (loading || !pokemon) {
+  if (loading) {
     return (
       <Background colors={["#1a1035", "#0f1d3e", "#0a0a1a"]}>
         <ActivityIndicator size="large" color="#a78bfa" style={{ flex: 1 }} />
       </Background>
     );
+  };
+
+
+
+  if(error){
+    return <NotFoundPokemonDetail/>
+  };
+
+  if (!pokemon) {
+    return null; // Ou outra tela de loading vazia
   }
 
   return (

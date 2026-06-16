@@ -119,6 +119,7 @@ export const Description = styled.Text<DescriptionProps>`
   color: rgba(255,255,255,0.85);
   text-align: ${({ align }) =>  align || 'center'};
   font-weight: 600;
+  margin-bottom: 10px;
 
 `;
 
