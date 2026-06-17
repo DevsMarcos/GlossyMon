@@ -106,7 +106,7 @@ const dadosExibidos = search.trim()
               numColumns={2}
               onEndReached={() => {
                 // Só pagina se não há tipo selecionado
-                if (!selectedType && hasMore && !loading) fetchMorePokemons;
+                if (!selectedType && hasMore && !loading) fetchMorePokemons();
               }}
               onEndReachedThreshold={0.2}
               columnWrapperStyle={{ justifyContent: "space-between" }}
