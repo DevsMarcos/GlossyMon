@@ -27,15 +27,22 @@ import {
   EvoName,
   Moves,
 } from "./PokemonDetailsPageStyle";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { BackButton, ContainerGlobal, PokemonName, PokemonNumber, TitleArea, TopBar } from "../../styles/GlobalStyle";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  BackButton,
+  ContainerGlobal,
+  PokemonName,
+  PokemonNumber,
+  TitleArea,
+  TopBar,
+} from "../../styles/GlobalStyle";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import NotFoundPokemonDetail from "../Error/NotFoundPokemonDetails";
 import useFetchPokemonDetail from "../../hooks/useFetchPokemonDetail";
 
 export default function PokemonDetailsPage() {
-  type Nav = NativeStackNavigationProp<RootStackParams , "Movements">;
+  type Nav = NativeStackNavigationProp<RootStackParams, "Movements">;
   const navigation = useNavigation<Nav>();
 
   // ─── DESESTRUTURAÇÃO DO SEU HOOK (A MÁGICA ACONTECE AQUI) ───────────────────
@@ -65,14 +72,13 @@ export default function PokemonDetailsPage() {
   }
 
   if (!pokemon) {
-    return null; 
+    return null;
   }
 
   // ─── RENDERIZAÇÃO DA SUA TELA PRINCIPAL ────────────────────────────────────
   return (
     <Background colors={background}>
       <ContainerGlobal edges={["top", "bottom"]}>
-
         <StatusBar hidden={true} />
 
         {/* Top App Bar */}
@@ -89,17 +95,21 @@ export default function PokemonDetailsPage() {
           contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
           showsVerticalScrollIndicator={false}
         >
-
           {/* Sprite */}
           <SpriteContainer>
-            <PokemonNumber>#{String(pokemon.id).padStart(3, "0")}</PokemonNumber>
+            <PokemonNumber>
+              #{String(pokemon.id).padStart(3, "0")}
+            </PokemonNumber>
             <Sprite source={{ uri: pokemon.sprite }} resizeMode="contain" />
           </SpriteContainer>
 
           {/* Tipos */}
           <TypesRow>
             {pokemon.types.map((type) => {
-              const colors = TYPE_COLORS[type] ?? { bg: "rgba(200,200,200,0.2)", text: "#ccc" };
+              const colors = TYPE_COLORS[type] ?? {
+                bg: "rgba(200,200,200,0.2)",
+                text: "#ccc",
+              };
               return (
                 <TypeBadge key={type} bg={colors.bg}>
                   <TypeBadgeText color={colors.text}>{type}</TypeBadgeText>
@@ -132,7 +142,9 @@ export default function PokemonDetailsPage() {
             <StatsContainer>
               {pokemon.stats.map((stat: any) => (
                 <StatRow key={stat.stat.name}>
-                  <StatLabel>{STAT_NAMES[stat.stat.name] ?? stat.stat.name}</StatLabel>
+                  <StatLabel>
+                    {STAT_NAMES[stat.stat.name] ?? stat.stat.name}
+                  </StatLabel>
                   <StatTrack>
                     <StatFill
                       width={`${(stat.base_stat / MAX_STAT) * 100}%`}
@@ -155,11 +167,21 @@ export default function PokemonDetailsPage() {
                 contentContainerStyle={{ gap: 12, alignItems: "center" }}
               >
                 {evolutions.map((evo, index) => (
-                  <EvoItem key={evo.name} style={{ flexDirection: "row", alignItems: "center" }}>
-                    <EvoSprite source={{ uri: evo.sprite }} resizeMode="contain" />
+                  <EvoItem
+                    key={evo.name}
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                  >
+                    <EvoSprite
+                      source={{ uri: evo.sprite }}
+                      resizeMode="contain"
+                    />
                     <EvoName>{evo.name}</EvoName>
                     {index < evolutions.length - 1 && (
-                      <MaterialIcons name="arrow-right" size={32} color="white" />
+                      <MaterialIcons
+                        name="arrow-right"
+                        size={32}
+                        color="white"
+                      />
                     )}
                   </EvoItem>
                 ))}
@@ -168,10 +190,17 @@ export default function PokemonDetailsPage() {
           )}
 
           {/* Botão de Movimentos */}
-          <Moves onPress={() => navigation.navigate("Movements", { id: pokemon.id, name: pokemon.name, background: background })}>
+          <Moves
+            onPress={() =>
+              navigation.navigate("Movements", {
+                id: pokemon.id,
+                name: pokemon.name,
+                background: background,
+              })
+            }
+          >
             <SectionTitle>Movimentos</SectionTitle>
           </Moves>
-
         </ScrollView>
       </ContainerGlobal>
     </Background>

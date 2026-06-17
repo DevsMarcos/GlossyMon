@@ -20,8 +20,8 @@ export const TopBar = styled.View`
   padding: 0 16px;
   margin-top: 2%;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(255,255,255,0.12);
-  background-color: rgba(255,255,255,0.07);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.07);
 `;
 
 export const BackButton = styled.TouchableOpacity`
@@ -39,7 +39,7 @@ export const BackIcon = styled.Text`
 
 export const PokemonNumber = styled.Text`
   font-size: 13px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
 `;
 
 export const PokemonName = styled.Text`
@@ -92,9 +92,9 @@ export const InfoRow = styled.View`
 
 export const InfoCard = styled.View`
   flex: 1;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-width: 1px;
-  border-color: rgba(255,255,255,0.18);
+  border-color: rgba(255, 255, 255, 0.18);
   border-radius: 16px;
   padding: 12px;
   align-items: center;
@@ -116,18 +116,18 @@ export const InfoValue = styled.Text`
 
 // ─── Seções ───────────────────────────────────────────────────────────────────
 export const Section = styled.View`
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-width: 1px;
-  border-color: rgba(255,255,255,0.18);
+  border-color: rgba(255, 255, 255, 0.18);
   border-radius: 16px;
   padding: 14px 16px;
   margin-bottom: 12px;
 `;
 
 export const Moves = styled.TouchableOpacity`
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-width: 1px;
-  border-color: rgba(255,255,255,0.18);
+  border-color: rgba(255, 255, 255, 0.18);
   border-radius: 16px;
   padding: 14px 16px;
   margin-bottom: 12px;
@@ -145,7 +145,7 @@ export const SectionTitle = styled.Text`
 
 export const Description = styled.Text`
   font-size: 16px;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 22px;
   text-align: center;
 `;
@@ -170,7 +170,7 @@ export const StatLabel = styled.Text`
 export const StatTrack = styled.View`
   flex: 1;
   height: 6px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
   overflow: hidden;
 `;
@@ -198,10 +198,10 @@ export const EvoItem = styled.View`
 export const EvoSprite = styled(Image)`
   width: 80px;
   height: 80px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 40px;
   border-width: 1px;
-  border-color: rgba(255,255,255,0.2);
+  border-color: rgba(255, 255, 255, 0.2);
 `;
 
 export const EvoName = styled.Text`
@@ -213,6 +213,6 @@ export const EvoName = styled.Text`
 
 export const EvoArrow = styled.Text`
   font-size: 24px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 20px;
 `;

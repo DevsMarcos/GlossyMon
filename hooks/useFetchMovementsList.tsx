@@ -10,7 +10,7 @@ export default function useFetchMovementsList() {
 
   const { params } = useRoute<Route>();
   const { id, name, background } = params;
-  
+
   const [moves, setMoves] = useState<MoveInfo[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,8 +29,8 @@ export default function useFetchMovementsList() {
         // Filtra só movimentos aprendidos subindo de nível
         .filter((item) =>
           item.version_group_details.some(
-            (v) => v.move_learn_method.name === "level-up"
-          )
+            (v) => v.move_learn_method.name === "level-up",
+          ),
         )
         // Mapeia extraindo o nível
         .map((item) => {
@@ -39,8 +39,8 @@ export default function useFetchMovementsList() {
             .sort((a, b) => b.level_learned_at - a.level_learned_at)[0];
 
           return {
-            name:  item.move.name,
-            url:   item.move.url,
+            name: item.move.name,
+            url: item.move.url,
             level: detail?.level_learned_at ?? 0,
           };
         })
@@ -48,7 +48,6 @@ export default function useFetchMovementsList() {
         .sort((a, b) => a.level - b.level);
 
       setMoves(dataMoves);
-
     } catch (error) {
       console.error("Erro ao buscar movimentos:", error);
     } finally {
@@ -58,9 +57,9 @@ export default function useFetchMovementsList() {
 
   // ─── Retorno unificado para a tela de Movimentos ───────────────────────────
   return {
-    pokemonName: name, 
-    background,        
-    moves,             
+    pokemonName: name,
+    background,
+    moves,
     loading,
     refetchMoves: fetchMoves,
   };

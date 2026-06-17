@@ -12,27 +12,33 @@ import {
   TitleArea,
   TopBar,
 } from "../../styles/GlobalStyle";
-import { Description, Section } from "../PokemonDetailsPage/PokemonDetailsPageStyle";
-import { ContainerMovement, SectionMove, SectionMoveData } from "./MovementDetaisStyle";
+import {
+  Description,
+  Section,
+} from "../PokemonDetailsPage/PokemonDetailsPageStyle";
+import {
+  ContainerMovement,
+  SectionMove,
+  SectionMoveData,
+} from "./MovementDetaisStyle";
 // 1. Importando o seu hook customizado
 import useFetchMovimentDetais from "../../hooks/useFetchMovimentDetaisl";
 
-export default function MovementDetail() { 
+export default function MovementDetail() {
   const navigation = useNavigation();
 
   // ─── CONEXÃO COM O SEU HOOK (DESESTRUTURAÇÃO) ──────────────────────────────
-  const {
-    moveName,
-    move,
-    loading,
-    background,
-  } = useFetchMovimentDetais();
+  const { moveName, move, loading, background } = useFetchMovimentDetais();
 
   // ─── TELA DE LOADING / DADOS AUSENTES ──────────────────────────────────────
   if (loading || !move) {
     return (
       <Background>
-        <ActivityIndicator size="large" color="#a78bfa" style={{ flex: 1, justifyContent: "center" }} />
+        <ActivityIndicator
+          size="large"
+          color="#a78bfa"
+          style={{ flex: 1, justifyContent: "center" }}
+        />
       </Background>
     );
   }
@@ -41,7 +47,6 @@ export default function MovementDetail() {
   return (
     <BackgroundLoad colors={background}>
       <ContainerGlobal edges={["top", "bottom"]}>
-
         {/* Barra Superior */}
         <TopBar>
           <BackButton onPress={() => navigation.goBack()}>
@@ -50,27 +55,30 @@ export default function MovementDetail() {
           <TitleArea>
             {/* Exibe o nome do movimento formatado vindo do hook */}
             <PokemonName>
-              {moveName.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}
+              {moveName
+                .replace(/-/g, " ")
+                .replace(/^\w/, (c) => c.toUpperCase())}
             </PokemonName>
           </TitleArea>
         </TopBar>
 
         {/* Painel de Informações do Movimento */}
         <ContainerMovement>
-          
           <SectionMove>
             <SectionMoveData>
               <SectionTitle>Poder</SectionTitle>
               <Description>{move.power ?? "--"}</Description>
-              
+
               <SectionTitle>PP</SectionTitle>
               <Description>{move.pp}</Description>
             </SectionMoveData>
 
             <SectionMoveData>
               <SectionTitle>Precisão</SectionTitle>
-              <Description>{move.accuracy ? `${move.accuracy}%` : "--"}</Description>
-              
+              <Description>
+                {move.accuracy ? `${move.accuracy}%` : "--"}
+              </Description>
+
               <SectionTitle>Tipo</SectionTitle>
               {/* Exibe o tipo do movimento (ex: Fire, Water) */}
               <Description style={{ textTransform: "capitalize" }}>
@@ -102,7 +110,6 @@ export default function MovementDetail() {
               </Description>
             </SectionMoveData>
           </SectionMove>
-
         </ContainerMovement>
       </ContainerGlobal>
     </BackgroundLoad>

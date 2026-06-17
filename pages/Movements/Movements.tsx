@@ -28,18 +28,16 @@ export default function Movements() {
   const navigation = useNavigation<Nav>();
 
   // ─── CONEXÃO COM O SEU HOOK (DESESTRUTURAÇÃO) ──────────────────────────────
-  const {
-    pokemonName,
-    background,
-    moves,
-    loading,
-  } = useFetchMovementsList();
+  const { pokemonName, background, moves, loading } = useFetchMovementsList();
 
   // ─── COMPONENTE DE RENDERIZAÇÃO DOS ITENS DA LISTA ────────────────────────
   const RenderItem: ListRenderItem<MoveInfo> = ({ item }) => (
     <TouchableButton
       onPress={() =>
-        navigation.navigate("MovementDetail", { url: item.url, name: item.name })
+        navigation.navigate("MovementDetail", {
+          url: item.url,
+          name: item.name,
+        })
       }
     >
       <Description align="left">
@@ -56,7 +54,10 @@ export default function Movements() {
   if (loading) {
     return (
       <Background>
-        <ActivityIndicator color="#a78bfa" style={{ flex: 1, justifyContent: "center" }} />
+        <ActivityIndicator
+          color="#a78bfa"
+          style={{ flex: 1, justifyContent: "center" }}
+        />
       </Background>
     );
   }
@@ -65,7 +66,6 @@ export default function Movements() {
   return (
     <BackgroundLoad colors={background ?? ["#1a1035", "#0f1d3e", "#0a0a1a"]}>
       <ContainerGlobal edges={["top", "bottom"]}>
-        
         {/* Barra Superior */}
         <TopBar>
           <BackButton onPress={() => navigation.goBack()}>
@@ -88,7 +88,6 @@ export default function Movements() {
           keyExtractor={(item) => item.name}
           contentContainerStyle={{ paddingBottom: 32, padding: 16 }}
         />
-        
       </ContainerGlobal>
     </BackgroundLoad>
   );
