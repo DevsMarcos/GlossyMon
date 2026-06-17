@@ -171,26 +171,19 @@ export default function useFetchPokemonList(){
 
 
   return {
-    // 📊 Estados com os dados dos Pokémons
     pokemons,
     searchResults,
     filteredByType,
     allNames,
-    
-    // ⚙️ Estados de controle (Inputs, Filtros, Modais)
     search,
     setSearch,
     selectedType,
     modalVisible,
     setModalVisible,
     hasMore,
-
-    // ⏳ Estados de Loading (para mostrar Spinners/ActivityIndicator)
     loading,
     loadingType,
     loadingSearch,
-
-    // 🚀 Funções/Ações que a tela pode disparar
     fetchMorePokemons: () => fetchPokemons(offset), // Facilitador para scroll infinito
     fetchPokemons, // Se quiser chamar manualmente passando o offset
     handleSelectType,
