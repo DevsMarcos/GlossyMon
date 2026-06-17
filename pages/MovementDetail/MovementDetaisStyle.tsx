@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 export const ContainerMovement = styled.View`
     flex: 1;
     padding: 16px;
-    justify-content: center;
 `
 
 
