@@ -38,4 +38,5 @@ export const SearchContainer = styled.View`
   align-items: center;
   gap: 8px;
   padding: 12px 16px 4px;
+  margin-bottom: 10px;
 `;

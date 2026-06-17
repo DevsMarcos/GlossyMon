@@ -1,6 +1,12 @@
 import { ActivityIndicator, FlatList, StatusBar } from "react-native";
 import { ContainerGlobal } from "../../styles/GlobalStyle";
-import { Background, PokemonsArea, Title, TopBar, SearchContainer } from "./PokemonListScreenStyle";
+import {
+  Background,
+  PokemonsArea,
+  Title,
+  TopBar,
+  SearchContainer,
+} from "./PokemonListScreenStyle";
 import SearchComponente from "../../components/SearchComponent/SearchComponent";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { useEffect, useRef, useState } from "react";
@@ -15,37 +21,34 @@ import useFetchPokemonList from "../../hooks/useFetchPokemonList";
 type Nav = NativeStackNavigationProp<RootStackParams, "PokemonListScreen">;
 
 export default function PokemonListScreen() {
-
   const {
-    pokemons, 
+    pokemons,
     searchResults,
     selectedType,
-    filteredByType, 
-    search, 
-    setSearch, 
-    setModalVisible, 
+    filteredByType,
+    search,
+    setSearch,
+    setModalVisible,
     modalVisible,
     handleSelectType,
     loadingType,
-    hasMore, 
-    loading, 
+    hasMore,
+    loading,
     fetchPokemons,
-    fetchMorePokemons
+    fetchMorePokemons,
   } = useFetchPokemonList();
 
-  const navigation   = useNavigation<Nav>();
-
-
+  const navigation = useNavigation<Nav>();
 
   // ── Lista base + filtro por nome ────────────────────────────────────────────
   // Se tem tipo selecionado → usa filteredByType
   // Se não tem tipo        → usa pokemons completo
   // Aplica filtro por nome por cima
-const dadosExibidos = search.trim()
-  ? searchResults                                          // tem texto → busca real
-  : selectedType
-    ? filteredByType                                       // tem tipo → filtro por tipo
-    : pokemons; 
+  const dadosExibidos = search.trim()
+    ? searchResults // tem texto → busca real
+    : selectedType
+      ? filteredByType // tem tipo → filtro por tipo
+      : pokemons;
 
   return (
     <Background>
@@ -98,7 +101,11 @@ const dadosExibidos = search.trim()
         {/* Grid de pokémons */}
         <PokemonsArea>
           {loadingType ? (
-            <ActivityIndicator color="#a78bfa" size="large" style={{ marginTop: 40 }} />
+            <ActivityIndicator
+              color="#a78bfa"
+              size="large"
+              style={{ marginTop: 40 }}
+            />
           ) : (
             <FlatList
               data={dadosExibidos}
@@ -111,25 +118,26 @@ const dadosExibidos = search.trim()
               onEndReachedThreshold={0.2}
               columnWrapperStyle={{ justifyContent: "space-between" }}
               ListFooterComponent={
-                loading
-                  ? <ActivityIndicator color="#a78bfa" style={{ margin: 20 }} />
-                  : null
+                loading ? (
+                  <ActivityIndicator color="#a78bfa" style={{ margin: 20 }} />
+                ) : null
               }
               ListEmptyComponent={
-                !loading && !loadingType
-                  ? <ActivityIndicator color="#a78bfa" style={{ margin: 20 }} />
-                  : null
+                !loading && !loadingType ? (
+                  <ActivityIndicator color="#a78bfa" style={{ margin: 20 }} />
+                ) : null
               }
               renderItem={({ item }) => (
                 <PokemonCard
                   pokemon={item}
-                  onPress={(p) => navigation.navigate("ProfilePokemon", { id: p.id })}
+                  onPress={(p) =>
+                    navigation.navigate("ProfilePokemon", { id: p.id })
+                  }
                 />
               )}
             />
           )}
         </PokemonsArea>
-
       </ContainerGlobal>
     </Background>
   );
