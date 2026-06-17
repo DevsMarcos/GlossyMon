@@ -73,7 +73,7 @@ height: 56px;
 `
 
 export const GlobalTitle = styled.Text`
-  font-size: 30px;
+  font-size: 24px;
   color: #ffffff;
 `
 
@@ -111,11 +111,11 @@ export const SectionTitle = styled.Text`
 interface DescriptionProps {
   align?: 'left' | 'center' | 'right' | 'justify'; // Aceita apenas valores válidos de alinhamento
   case?: 'uppercase' | 'lowercase';
-  Size?: '16px' | '18px'
+  Size?: number
 }
 
 export const Description = styled.Text<DescriptionProps>`
-  font-size: ${props => props.Size || '16'}px;
+  font-size: ${props => props.Size || 16}px;
   color: rgba(255,255,255,0.85);
   text-align: ${({ align }) =>  align || 'center'};
   font-weight: 600;
@@ -124,7 +124,7 @@ export const Description = styled.Text<DescriptionProps>`
 `;
 
 export const OfuscedDescription = styled.Text`
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255,255,255,0.5);
 `;
 
@@ -173,7 +173,7 @@ export const PokemonNumber = styled.Text`
 `;
 
 export const PokemonName = styled.Text`
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 600;
   color: #ffffff;
   text-transform: capitalize;

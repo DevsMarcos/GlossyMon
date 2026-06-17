@@ -40,11 +40,11 @@ export default function Movements() {
         })
       }
     >
-      <Description align="left">
+      <Description align="left" Size={18}>
         Movimento:{" "}
         {item.name.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase())}
       </Description>
-      <OfuscedDescription>
+      <OfuscedDescription> 
         Level de Aprendizagem: {item.level}
       </OfuscedDescription>
     </TouchableButton>

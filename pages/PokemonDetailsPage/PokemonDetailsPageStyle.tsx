@@ -115,13 +115,19 @@ export const InfoValue = styled.Text`
 `;
 
 // ─── Seções ───────────────────────────────────────────────────────────────────
-export const Section = styled.View`
+interface SectionCustom {
+  height?: number | string;
+}
+
+export const Section = styled.View<SectionCustom>`
   background-color: rgba(255, 255, 255, 0.1);
   border-width: 1px;
   border-color: rgba(255, 255, 255, 0.18);
   border-radius: 16px;
   padding: 14px 16px;
   margin-bottom: 12px;
+  height: ${({ height }) =>
+    height === undefined ? 'auto' : typeof height === 'number' ? `${height}px` : height};
 `;
 
 export const Moves = styled.TouchableOpacity`
@@ -133,8 +139,12 @@ export const Moves = styled.TouchableOpacity`
   margin-bottom: 12px;
 `;
 
-export const SectionTitle = styled.Text`
-  font-size: 24px;
+interface SectionTitleProps {
+  fontSize?: number;
+}
+
+export const SectionTitle = styled.Text<SectionTitleProps>`
+  font-size: ${({ fontSize }) => fontSize ?? 24}px;
   font-weight: 600;
   color: white;
   text-transform: uppercase;
@@ -143,8 +153,12 @@ export const SectionTitle = styled.Text`
   text-align: center;
 `;
 
-export const Description = styled.Text`
-  font-size: 16px;
+interface DescriptionProps {
+  fontSize?: number;
+}
+
+export const Description = styled.Text<DescriptionProps>`
+  font-size: ${({ fontSize }) => fontSize ?? 16}px;
   color: rgba(255, 255, 255, 0.85);
   line-height: 22px;
   text-align: center;
